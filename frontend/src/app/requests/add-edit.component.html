@@ -1,0 +1,97 @@
+<h2 class="page-title mb-4">Submit Service Request</h2>
+
+<div class="card col-md-8">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label class="form-label">Request Type</label>
+                <select formControlName="type" class="form-select">
+                    <option value="Hardware Procurement">Hardware Procurement</option>
+                    <option value="Software Access">Software Access</option>
+                    <option value="Account Permissions">Account Permissions</option>
+                </select>
+            </div>
+
+            <!-- Dynamic hardware fields -->
+            <div *ngIf="f['type'].value === 'Hardware Procurement'" class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Requested Device</label>
+                    <select formControlName="device" class="form-select">
+                        <option value="MacBook Pro M3">MacBook Pro M3</option>
+                        <option value="Dell XPS 15">Dell XPS 15</option>
+                        <option value="ThinkPad X1 Carbon">ThinkPad X1 Carbon</option>
+                        <option value="UltraWide 34 inch Monitor">UltraWide 34 inch Monitor</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">RAM Configuration</label>
+                    <select formControlName="ram" class="form-select">
+                        <option value="8GB">8GB</option>
+                        <option value="16GB">16GB</option>
+                        <option value="32GB">32GB</option>
+                        <option value="64GB">64GB</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dynamic software fields -->
+            <div *ngIf="f['type'].value === 'Software Access'" class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Software Package</label>
+                    <select formControlName="software" class="form-select">
+                        <option value="Figma Pro">Figma Pro</option>
+                        <option value="Adobe Creative Cloud">Adobe Creative Cloud</option>
+                        <option value="WebStorm / IntelliJ IDEA">WebStorm / IntelliJ IDEA</option>
+                        <option value="Microsoft 365 Enterprise">Microsoft 365 Enterprise</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">License Term</label>
+                    <select formControlName="license" class="form-select">
+                        <option value="3 Months">3 Months</option>
+                        <option value="6 Months">6 Months</option>
+                        <option value="1 Year">1 Year</option>
+                        <option value="Perpetual">Perpetual</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dynamic access fields -->
+            <div *ngIf="f['type'].value === 'Account Permissions'" class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">System Environment</label>
+                    <select formControlName="system" class="form-select">
+                        <option value="Production Server">Production Server</option>
+                        <option value="Staging Environment">Staging Environment</option>
+                        <option value="AWS Dashboard">AWS Dashboard</option>
+                        <option value="HR Databases">HR Databases</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">Role Access Level</label>
+                    <select formControlName="roleAccess" class="form-select">
+                        <option value="Read Only">Read Only</option>
+                        <option value="Read & Write">Read & Write</option>
+                        <option value="Administrator">Administrator</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Business Justification</label>
+                <textarea formControlName="justification" class="form-control" rows="3" [ngClass]="{ 'is-invalid': submitted && f['justification'].errors }" placeholder="Please describe why this asset/permission is required..."></textarea>
+                <div *ngIf="submitted && f['justification'].errors" class="invalid-feedback">
+                    <div *ngIf="f['justification'].errors['required']">Justification is required</div>
+                </div>
+            </div>
+
+            <div>
+                <button [disabled]="submitting" class="btn btn-primary me-2">
+                    <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                    Submit Ticket
+                </button>
+                <a routerLink="/requests" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

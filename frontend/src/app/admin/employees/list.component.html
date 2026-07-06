@@ -1,0 +1,74 @@
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="page-title">Employees</h2>
+        <p class="page-subtitle">Manage system corporate staff directory</p>
+    </div>
+    <a routerLink="add" class="btn btn-success"><i class="bi bi-plus-lg"></i> Add Employee</a>
+</div>
+
+<!-- Skeleton Loader -->
+<div *ngIf="loading" class="card">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><div class="skeleton skeleton-text" style="width: 50%"></div></th>
+                    <th><div class="skeleton skeleton-text" style="width: 40%"></div></th>
+                    <th><div class="skeleton skeleton-text" style="width: 45%"></div></th>
+                    <th><div class="skeleton skeleton-text" style="width: 50%"></div></th>
+                    <th><div class="skeleton skeleton-text" style="width: 55%"></div></th>
+                    <th><div class="skeleton skeleton-text" style="width: 50%"></div></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of [1,2,3,4]">
+                    <td><div class="skeleton skeleton-text" style="width: 70%"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 65%"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 80%"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 55%"></div></td>
+                    <td><div class="skeleton skeleton-badge"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 60%"></div></td>
+                    <td><div class="d-flex gap-2 justify-content-end"><div class="skeleton skeleton-btn"></div><div class="skeleton skeleton-btn"></div></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="!loading" class="card">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Emp ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>Hire Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emp of employees">
+                    <td class="font-monospace fw-bold">{{emp.empId}}</td>
+                    <td class="fw-semibold">{{emp.firstName}} {{emp.lastName}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.position}}</td>
+                    <td><span class="badge bg-secondary">{{emp.department}}</span></td>
+                    <td>{{emp.hireDate}}</td>
+                    <td class="text-end">
+                        <a routerLink="edit/{{emp.empId}}" class="btn btn-sm btn-primary me-2"><i class="bi bi-pencil-square"></i> Edit</a>
+                        <button (click)="deleteEmployee(emp.empId)" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                    </td>
+                </tr>
+                <tr *ngIf="!employees || employees.length === 0">
+                    <td colspan="7" class="text-center text-muted p-4">
+                        No employees registered.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

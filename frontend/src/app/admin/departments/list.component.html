@@ -1,0 +1,62 @@
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="page-title">Departments</h2>
+        <p class="page-subtitle">Configure corporate organization divisions</p>
+    </div>
+    <a routerLink="add" class="btn btn-success"><i class="bi bi-plus-lg"></i> Add Department</a>
+</div>
+
+<!-- Skeleton Loader -->
+<div *ngIf="loading" class="card">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 10%"><div class="skeleton skeleton-text" style="width: 40%"></div></th>
+                    <th style="width: 30%"><div class="skeleton skeleton-text" style="width: 50%"></div></th>
+                    <th style="width: 50%"><div class="skeleton skeleton-text" style="width: 60%"></div></th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of [1,2,3,4]">
+                    <td><div class="skeleton skeleton-text" style="width: 30%"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 60%"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 80%"></div></td>
+                    <td><div class="d-flex gap-2 justify-content-end"><div class="skeleton skeleton-btn"></div><div class="skeleton skeleton-btn"></div></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="!loading" class="card">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 10%">ID</th>
+                    <th style="width: 30%">Name</th>
+                    <th style="width: 50%">Description</th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dept of departments">
+                    <td>{{dept.id}}</td>
+                    <td class="fw-semibold">{{dept.name}}</td>
+                    <td class="text-secondary">{{dept.description}}</td>
+                    <td class="text-end">
+                        <a routerLink="edit/{{dept.id}}" class="btn btn-sm btn-primary me-2"><i class="bi bi-pencil-square"></i> Edit</a>
+                        <button (click)="deleteDept(dept.id!)" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                    </td>
+                </tr>
+                <tr *ngIf="!departments || departments.length === 0">
+                    <td colspan="4" class="text-center text-muted p-4">
+                        No departments found.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

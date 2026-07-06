@@ -1,0 +1,84 @@
+<div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="page-title">Service Requests</h2>
+        <p class="page-subtitle" *ngIf="account?.role === Role.Admin">Review and approve employee procurement and access requests</p>
+        <p class="page-subtitle" *ngIf="account?.role !== Role.Admin">Submit and track your procurement and access requests</p>
+    </div>
+    <a *ngIf="account?.role !== Role.Admin" routerLink="add" class="btn btn-primary"><i class="bi bi-send-fill"></i> Submit Request</a>
+</div>
+
+<!-- Skeleton Loader -->
+<div *ngIf="loading" class="card">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 15%"><div class="skeleton skeleton-text" style="width: 60%"></div></th>
+                    <th *ngIf="account?.role === Role.Admin" style="width: 25%"><div class="skeleton skeleton-text" style="width: 70%"></div></th>
+                    <th style="width: 20%"><div class="skeleton skeleton-text" style="width: 65%"></div></th>
+                    <th style="width: 25%"><div class="skeleton skeleton-text" style="width: 80%"></div></th>
+                    <th style="width: 10%"><div class="skeleton skeleton-text" style="width: 50%"></div></th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of [1,2,3,4,5]">
+                    <td><div class="skeleton skeleton-text" style="width: 80%"></div></td>
+                    <td *ngIf="account?.role === Role.Admin"><div class="skeleton skeleton-text" style="width: 70%"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 60%"></div></td>
+                    <td><div class="skeleton skeleton-text" style="width: 90%"></div></td>
+                    <td><div class="skeleton skeleton-badge"></div></td>
+                    <td><div class="skeleton skeleton-btn"></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="!loading" class="card">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 15%">Date</th>
+                    <th *ngIf="account?.role === Role.Admin" style="width: 25%">Employee Email</th>
+                    <th style="width: 20%">Request Type</th>
+                    <th style="width: 25%">Requirements / Items</th>
+                    <th style="width: 10%">Status</th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let req of requests">
+                    <td>{{req.date}}</td>
+                    <td *ngIf="account?.role === Role.Admin" class="fw-semibold">{{req.employeeEmail}}</td>
+                    <td>{{req.type}}</td>
+                    <td class="text-secondary font-monospace" style="font-size: 0.85rem;">{{getItemSummary(req.items)}}</td>
+                    <td>
+                        <span [ngClass]="{
+                            'badge-status': true,
+                            'badge-status-approved': req.status === 'Approved',
+                            'badge-status-pending': req.status === 'Pending',
+                            'badge-status-rejected': req.status === 'Rejected'
+                        }">{{req.status}}</span>
+                    </td>
+                    <td class="text-end" style="white-space: nowrap;">
+                        <ng-container *ngIf="account?.role === Role.Admin && req.status === 'Pending'">
+                            <button (click)="updateStatus(req.id!, 'Approved')" class="btn btn-sm btn-success me-1">Approve</button>
+                            <button (click)="updateStatus(req.id!, 'Rejected')" class="btn btn-sm btn-danger me-1">Reject</button>
+                        </ng-container>
+                        <button (click)="deleteRequest(req.id!)" class="btn btn-sm btn-outline-danger" [disabled]="req.isDeleting">
+                            <span *ngIf="req.isDeleting" class="spinner-border spinner-border-sm"></span>
+                            <span *ngIf="!req.isDeleting"><i class="bi bi-trash"></i></span>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="!loading && (!requests || requests.length === 0)">
+                    <td [attr.colspan]="account?.role === Role.Admin ? 6 : 5" class="text-center text-muted p-4">
+                        No requests found.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

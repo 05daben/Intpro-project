@@ -1,0 +1,16 @@
+<div class="auth-header">
+    <h2 class="auth-title">Account Verification</h2>
+    <p class="auth-subtitle">Confirming your email registration</p>
+</div>
+<div class="auth-body text-center">
+    <div *ngIf="emailStatus === EmailStatus.Verifying" class="p-3">
+        <span class="spinner-border spinner-border-lg text-primary mb-3"></span>
+        <div class="text-secondary fw-semibold">Verifying your token details...</div>
+    </div>
+    <div *ngIf="emailStatus === EmailStatus.Failed" class="p-3">
+        <div class="text-danger mb-3" style="font-size: 2.5rem;"><i class="bi bi-x-circle-fill"></i></div>
+        <div class="text-white fw-bold mb-2">Verification Failed</div>
+        <p class="text-secondary small mb-4">The verification token is invalid or has expired.</p>
+        <a routerLink="/account/forgot-password" class="btn btn-outline-light w-100">Request New Code</a>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="auth-header">
+    <h2 class="auth-title">Create Account</h2>
+    <p class="auth-subtitle">Register a new profile in the EMS portal</p>
+</div>
+<div class="auth-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="mb-3 col-3">
+                <label class="form-label">Title</label>
+                <select formControlName="title" class="form-select" [ngClass]="{ 'is-invalid': submitted && f['title'].errors }">
+                    <option value=""></option>
+                    <option value="Mr">Mr</option>
+                    <option value="Mrs">Mrs</option>
+                    <option value="Miss">Miss</option>
+                    <option value="Ms">Ms</option>
+                </select>
+                <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+                    <div *ngIf="f['title'].errors['required']">Required</div>
+                </div>
+            </div>
+            <div class="mb-3 col-4">
+                <label class="form-label">First Name</label>
+                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" />
+                <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                    <div *ngIf="f['firstName'].errors['required']">Required</div>
+                </div>
+            </div>
+            <div class="mb-3 col-5">
+                <label class="form-label">Last Name</label>
+                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
+                <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                    <div *ngIf="f['lastName'].errors['required']">Required</div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" placeholder="name@company.com" />
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <div *ngIf="f['email'].errors['email']">Must be a valid email</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" placeholder="••••••••" />
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Required</div>
+                    <div *ngIf="f['password'].errors['minlength']">Min 6 chars</div>
+                </div>
+            </div>
+            <div class="mb-3 col">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" placeholder="••••••••" />
+                <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+                    <div *ngIf="f['confirmPassword'].errors['required']">Required</div>
+                    <div *ngIf="f['confirmPassword'].errors['mustMatch']">Must match</div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f['acceptTerms'].errors }" />
+            <label for="acceptTerms" class="form-check-label text-secondary" style="font-size: 0.85rem;">I accept the Terms & Conditions</label>
+            <div *ngIf="submitted && f['acceptTerms'].errors" class="invalid-feedback">Accepting Terms is required</div>
+        </div>
+        <div class="mt-4">
+            <button [disabled]="submitting" class="btn btn-primary w-100 mb-2">
+                <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                Register Profile
+            </button>
+            <div class="text-center mt-3" style="font-size: 0.85rem;">
+                <span class="text-secondary">Already have an account? </span>
+                <a routerLink="../login">Sign In</a>
+            </div>
+        </div>
+    </form>
+</div>

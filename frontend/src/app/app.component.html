@@ -1,0 +1,44 @@
+<div class="app-container">
+    <!-- Vertical Sidebar navigation for logged-in users -->
+    <nav class="sidebar" *ngIf="account">
+        <div class="sidebar-brand">
+            <span class="logo-icon"><i class="bi bi-shield-lock-fill"></i></span>
+            <span>EMS Portal</span>
+        </div>
+        <div class="sidebar-nav">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a routerLink="/requests" routerLinkActive="active" class="nav-item">
+                <i class="bi bi-file-earmark-text"></i> Service Requests
+            </a>
+            <a routerLink="/profile" routerLinkActive="active" class="nav-item">
+                <i class="bi bi-person-circle"></i> My Profile
+            </a>
+            <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active" class="nav-item">
+                <i class="bi bi-sliders"></i> Admin Console
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <span class="user-name">{{account.firstName}} {{account.lastName}}</span>
+                <span class="user-role">{{account.role}}</span>
+            </div>
+            <button (click)="logout()" class="btn-logout">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content" [ngClass]="{ 'has-sidebar': account }">
+        <!-- subnav router outlet -->
+        <router-outlet name="subnav"></router-outlet>
+
+        <!-- global alert -->
+        <alert></alert>
+
+        <!-- main router outlet -->
+        <router-outlet></router-outlet>
+    </div>
+</div>

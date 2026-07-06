@@ -1,0 +1,35 @@
+<h2 class="page-title mb-4">{{title}}</h2>
+
+<div class="card col-md-8">
+    <div class="card-body">
+        <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label class="form-label">Department Name</label>
+                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" placeholder="e.g. Engineering" />
+                <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors['required']">Department Name is required</div>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label">Description</label>
+                <textarea formControlName="description" class="form-control" rows="3" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }" placeholder="Describe the responsibilities..."></textarea>
+                <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                    <div *ngIf="f['description'].errors['required']">Description is required</div>
+                </div>
+            </div>
+
+            <div>
+                <button [disabled]="submitting" class="btn btn-primary me-2">
+                    <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                    Save
+                </button>
+                <a routerLink="../../" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+
+        <div *ngIf="loading" class="text-center p-4">
+            <span class="spinner-border spinner-border-lg text-primary"></span>
+        </div>
+    </div>
+</div>

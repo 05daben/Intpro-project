@@ -1,0 +1,36 @@
+<div class="page-header mb-4">
+    <h2 class="page-title">My Profile</h2>
+    <p class="page-subtitle">View your account profile specifications</p>
+</div>
+
+<div class="card col-md-8">
+    <div class="card-body">
+        <div class="d-flex align-items-center gap-4 mb-4">
+            <div class="stat-icon-wrapper stat-icon-primary" style="width: 72px; height: 72px; font-size: 2.25rem; border-radius: 18px;">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <div>
+                <h4 class="text-white fw-bold mb-1">{{account?.title}} {{account?.firstName}} {{account?.lastName}}</h4>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-secondary font-monospace">{{account?.role}}</span>
+                    <span class="text-secondary" style="font-size: 0.85rem;"><i class="bi bi-calendar-event me-1"></i> Active Session</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <div class="row py-2 border-bottom border-light" style="--bs-border-opacity: 0.05;">
+                <div class="col-sm-3 text-secondary fw-semibold">Email Address</div>
+                <div class="col-sm-9 text-white font-monospace">{{account?.email}}</div>
+            </div>
+            <div class="row py-2 border-bottom border-light" style="--bs-border-opacity: 0.05;">
+                <div class="col-sm-3 text-secondary fw-semibold">Session Status</div>
+                <div class="col-sm-9 text-success fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Active & Verified</div>
+            </div>
+        </div>
+
+        <div>
+            <a routerLink="update" class="btn btn-primary"><i class="bi bi-pencil-fill me-1"></i> Update Profile Settings</a>
+        </div>
+    </div>
+</div>
