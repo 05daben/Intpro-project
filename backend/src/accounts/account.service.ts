@@ -169,6 +169,10 @@ async function update(id: any, params: any) {
         params.passwordHash = await hash(params.password);
     }
 
+    if (params.isVerified !== undefined) {
+        account.verified = params.isVerified ? new Date() : null;
+    }
+
     Object.assign(account, params);
     account.updated = Date.now();
     await account.save();

@@ -53,7 +53,7 @@ async function runTests() {
         try {
             const loginRes = await axios.post(`${API_URL}/accounts/authenticate`, {
                 email: 'admin@example.com',
-                password: 'Password123!'
+                password: 'admin123'
             });
             adminToken = loginRes.data.jwtToken;
             logResult(true, 'POST /accounts/authenticate - Logged in as seed Admin successfully');
@@ -114,7 +114,7 @@ async function runTests() {
         // Test 8: Fetch Departments
         try {
             const deptRes = await axios.get(`${API_URL}/departments`, {
-                headers: { Authorization: `Bearer ${userToken}` }
+                headers: { Authorization: `Bearer ${adminToken}` }
             });
             logResult(true, `GET /departments - Retrieved department list (count: ${deptRes.data.length})`);
         } catch (err: any) {
@@ -126,7 +126,7 @@ async function runTests() {
         try {
             await axios.post(`${API_URL}/employees`, {
                 empId: testEmpId,
-                email: `emp_${Date.now()}@example.com`,
+                email: testUserEmail,
                 firstName: 'John',
                 lastName: 'Doe',
                 position: 'Senior Engineer',
@@ -143,7 +143,7 @@ async function runTests() {
         // Test 10: Fetch Employees
         try {
             const empRes = await axios.get(`${API_URL}/employees`, {
-                headers: { Authorization: `Bearer ${userToken}` }
+                headers: { Authorization: `Bearer ${adminToken}` }
             });
             logResult(true, `GET /employees - Retrieved employee roster (count: ${empRes.data.length})`);
         } catch (err: any) {

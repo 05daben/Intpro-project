@@ -48,14 +48,50 @@ async function initialize() {
             firstName: 'System',
             lastName: 'Admin',
             acceptTerms: true,
-            role: 'admin',
+            role: 'Admin',
             verified: new Date()
         });
         console.log('✅ Default admin account seeded: admin@example.com / admin123');
     } else {
         adminAccount.passwordHash = hashedPassword;
-        adminAccount.role = 'admin';
+        adminAccount.role = 'Admin';
         await adminAccount.save();
         console.log('✅ Default admin account updated: admin@example.com / admin123');
+    }
+
+    // Seed default departments
+    const deptCount = await db.Department.count();
+    if (deptCount === 0) {
+        await db.Department.bulkCreate([
+            { id: 1, name: 'Engineering', description: 'Software engineering and IT operations' },
+            { id: 2, name: 'Human Resources', description: 'Employee benefits, onboarding and recruitment' },
+            { id: 3, name: 'Marketing', description: 'Brand management and digital advertising campaigns' }
+        ]);
+        console.log('✅ Default departments seeded');
+    }
+
+    // Seed default employees
+    const empCount = await db.Employee.count();
+    if (empCount === 0) {
+        await db.Employee.create({
+            empId: 'EMP001',
+            email: 'admin@example.com',
+            firstName: 'System',
+            lastName: 'Admin',
+            position: 'IT Director',
+            department: 'Engineering',
+            hireDate: '2020-01-15'
+        });
+        console.log('✅ Default employee EMP001 seeded');
+    }
+
+    // Seed default requests
+    const reqCount = await db.Request.count();
+    if (reqCount === 0) {
+        await db.Request.bulkCreate([
+            { id: 1718000000001, type: 'Hardware Procurement', items: { device: 'MacBook Pro M3', RAM: '32GB' }, status: 'Approved', date: '2026-07-01', employeeEmail: 'admin@example.com' },
+            { id: 1718000000002, type: 'Software Access', items: { software: 'Adobe Creative Cloud' }, status: 'Pending', date: '2026-07-05', employeeEmail: 'admin@example.com' }
+        ]);
+        console.log('✅ Default requests seeded');
     }
 }

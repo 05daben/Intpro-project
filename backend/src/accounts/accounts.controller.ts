@@ -198,9 +198,10 @@ function updateSchema(req: any, res: any, next: any) {
         confirmPassword: Joi.string().valid(Joi.ref('password')).empty('')
     };
     
-    // only admins can update role
+    // only admins can update role and verification status
     if (req.user.role === Role.Admin) {
         schemaRules.role = Joi.string().valid(Role.Admin, Role.User).empty('');
+        schemaRules.isVerified = Joi.boolean().empty('');
     }
     
     const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
