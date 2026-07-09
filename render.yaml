@@ -2,7 +2,7 @@ services:
   # Backend Web Service (Node.js API Server)
   - type: web
     name: intpro-backend
-    env: node
+    runtime: node
     rootDir: backend
     buildCommand: npm install
     startCommand: npm start
@@ -15,10 +15,10 @@ services:
   # Frontend Static Site (Angular App)
   - type: web
     name: intpro-frontend
-    env: static
+    runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    publishPath: dist/angular-21-auth-boilerplate
+    staticPublishPath: dist/angular-21-auth-boilerplate
     routes:
       - type: rewrite
         source: /*
