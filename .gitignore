@@ -1,26 +1,113 @@
-# Dependencies
+# =========================================================================
+# COMPREHENSIVE MONOREPO .GITIGNORE
+# Covers: Angular (Frontend), Node.js (Backend), OS, IDEs, and Secrets
+# =========================================================================
+
+# --- Dependencies & Package Managers ---
 node_modules/
+/node_modules/
+**/node_modules/
+.npm/
+.eslintcache
+.stylelintcache
+yarn-error.log
+pnpm-debug.log*
+.pnpm-store/
 
-# Environment Variables
-.env
-
-# Build Files
+# --- Angular & Build Artifacts ---
+.angular/
+/dist/
+**/dist/
+/build/
+**/build/
+/out/
+**/out/
 client/build/
-dist/
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
 
-# Logs
+# --- Environment & Configuration Secrets ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+*.env
+config.json
+**/config.json
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+
+# --- Logs, Debugging & Diagnostic Files ---
 *.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+**/logs/
+*.pid
+*.seed
+*.pid.lock
 
-# Coverage
+# --- Test Coverage & Reports ---
 coverage/
+**/coverage/
+.nyc_output/
+htmlcov/
+*.lcov
+.karma/
+.jest/
+.mocha/
 
-# Uploads
-uploads/
+# --- Databases & Local Storage ---
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
+local.db
 
-# IDE
+# --- IDEs, Text Editors, & Project Tooling ---
 .vscode/
+!.vscode/extensions.json
 .idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+.metadata/
+.vs/
+*.sublime-project
+*.sublime-workspace
 
-# OS Files
+# --- OS Specific Junk ---
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
+
+# --- System & Temporary Files ---
+tmp/
+**/tmp/
+temp/
+**/temp/
+*.tmp
+*.bak
+*.swp
