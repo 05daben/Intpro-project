@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:4000'
+  apiUrl: 'https://your-vercel-backend-url.vercel.app' // REPLACE this with your actual backend Vercel deployment URL once deployed
 };

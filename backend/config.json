@@ -6,6 +6,7 @@
     "password": "",
     "database": "admin_app"
   },
+  "databaseUrl": "postgresql://neondb_owner:npg_RglrEH2zCMk4@ep-still-night-aolb9qrk.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require",
   "secret": "superultramegahardtoguesssecret",
   "emailFrom": "info@my-node-api.com",
   "smtpOptions": {
