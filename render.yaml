@@ -5,7 +5,7 @@ services:
     runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    staticPublishPath: dist/angular-21-auth-boilerplate
+    staticPublishPath: dist
     routes:
       - type: rewrite
         source: /*
