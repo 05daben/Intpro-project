@@ -1,21 +1,7 @@
 services:
-  # Backend Web Service (Node.js API Server)
-  - type: web
-    name: intpro-backend
-    runtime: node
-    plan: free
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: npm start
-    envVars:
-      - key: DATABASE_URL
-        sync: false
-      - key: NODE_ENV
-        value: production
-
   # Frontend Static Site (Angular App)
   - type: web
-    name: intpro-frontend
+    name: baculao-frontend
     runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
